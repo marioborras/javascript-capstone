@@ -1,4 +1,10 @@
+let clueDiv = document.querySelector("#clue"),
+    messageDiv = document.querySelector("#message"),
+    guessWordDiv = document.querySelector("#guessWord"),
+    chanceDiv = document.querySelector("#chancesLeft")
 
+let chancesLeft = 5;
+ chanceDiv.innerHTML = `You have ${chancesLeft} chances left.`
 //create an array of words
 let words = ['INCEPTION', 'DOOM', 'PHILADELPHIA',
             'PARIS', 'JAVASCRIPT', 'YOUTUBE','TOKYO', 
@@ -31,7 +37,7 @@ let clue = {
 
 }
 //this labels a clue from up above to the randomly generated word
-document.querySelector("#clue").innerHTML = `Clue: ${clue[word]}` 
+clueDiv.innerHTML = `Clue: ${clue[word]}` 
 /*This is event listen to letter buttons and call play function inside.
 it also grays out the button and they are unable to select it again after it has been
 used. found this on stackoverflow, couldnt have done it with out it.*/
@@ -55,30 +61,43 @@ for (var i = 0; i < word.length; i++) {
 }
 
 //replace the inner html with an empty array of underscores. 
-document.querySelector("#guessWord").innerHTML = answerArray.join(' ')
+guessWordDiv.innerHTML = answerArray.join(' ')
 
 let remainingLetters = word.length;
-
 /*input is from above inner text */
 function playGame(input){
 
 //the game loop
     if (remainingLetters > 0 ){
+        let foundMatch = false;
      
     for (let i = 0; i <word.length; i++){
        if (word[i]=== input) {
-           answerArray[i] = input
-           remainingLetters--
+            foundMatch = true;
+           answerArray[i] = input;
+           remainingLetters--;
        }
         if (remainingLetters === 0){
-           document.querySelector("#message").innerHTML ="Winner, Winner, Chicken Dinner!"
-           document.querySelector("#clue").innerHTML ="Thanks for playing!"
+           messageDiv.innerHTML ="Winner, Winner, Chicken Dinner!"
+           clueDiv.innerHTML ="Thanks for playing!"
            setTimeout(function() {
             window.location.reload()
            },5000)
         }
+       
+        
+    } if (!foundMatch) {
+        chancesLeft--;
+        chanceDiv.innerHTML = `You have ${chancesLeft} chances left.`; 
     }
+    if (chancesLeft == 0){
+        messageDiv.innerHTML = "You lost"
+        setTimeout(function() {
+            window.location.reload()
+           },1000)
+        
+        } 
     }
-    document.querySelector("#guessWord").innerHTML =answerArray.join('')
+    guessWordDiv.innerHTML =answerArray.join('')
 
 }
