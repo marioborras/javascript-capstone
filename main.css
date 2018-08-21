@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: lightblue;
+    color: white;
+    font-size: 20px;
+}
+#container {
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 100px;
+}
+#heading,#center{
+    text-align: center;
+}
+#guessWord {
+    letter-spacing: 30px;
+    font-size: 1.5em;
+}
+#clue {
+    margin-top: 16px;
+}
+#newButton {
+    width: 156px;
+    height: 45px;
+    margin-top: 20px
+}
+button {
+    background: #FFCB04;
+    color: #1A1919;
+    width: 50px;
+    height: 50px;
+    font-size: 31px;
+    border-radius: 25px;
+
+}
+
+button:hover {
+    background: black;
+    color: white;
+}
+button:disabled{
+    background: black;
+    color: white;
+    opacity: 0.3;
+}
+
+@media only screen and (max-width: 600px) {
+    #guessWord {
+        letter-spacing: 2.5px;
+        font-size: 29px;
+    }
+}
+@media only screen and (min-width: 600px) {
+    #guessWord {
+        letter-spacing: 10px;
+    }
+}
