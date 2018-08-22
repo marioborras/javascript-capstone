@@ -1,23 +1,23 @@
-let clueDiv = document.querySelector("#clue"),
+const clueDiv = document.querySelector("#clue"),
     messageDiv = document.querySelector("#message"),
     guessWordDiv = document.querySelector("#guessWord"),
-    chanceDiv = document.querySelector("#chancesLeft")
-
+    chanceDiv = document.querySelector("#chancesLeft");
 let chancesLeft = 5;
+
  chanceDiv.innerHTML = `You have ${chancesLeft} chances left.`
 //create an array of words
-let words = ['INCEPTION', 'DOOM', 'PHILADELPHIA',
+const words = ['ROCKY', 'NINTENDO', 'PHILADELPHIA',
             'PARIS', 'JAVASCRIPT', 'YOUTUBE','TOKYO', 
             'STARBUCKS','CHILDREN','GOOGLE', 'DICTIONARY','SCRABBLE',
             'BLOCKBUSTER', 'SELTZER', 'COFFEE','CYCLING', 'EGYPT', 
             'BLIZZARD'];
 
 //pick a random word
-let word = words[Math.floor(Math.random()* words.length)];
+const word = words[Math.floor(Math.random()* words.length)];
 
-let clue = {
-    INCEPTION: 'Movie',
-    DOOM: 'Classic Video Game',
+const clue = {
+    ROCKY: 'Movie',
+    NINTENDO: 'Classic Video Game',
     PHILADELPHIA: 'City',
     PARIS: 'European City',
     JAVASCRIPT: 'The language of the web',
@@ -25,15 +25,15 @@ let clue = {
     TOKYO: 'Asian City',
     STARBUCKS: 'Get Some Coffee',
     CHILDREN: 'Little People',
-    GOOGLE: 'Look it up',
+    GOOGLE: 'Look It Up',
     DICTIONARY: 'Word of the day',
     SCRABBLE: 'Board Game',
-    BLOCKBUSTER: 'A hit movie',
+    BLOCKBUSTER: 'A Hit Movie',
     SELTZER: 'Refreshing',
     COFFEE: 'Could be hot',
-    CYCLING: 'Two wheels',
+    CYCLING: 'Two Wheels',
     EGYPT: 'Pyramids',
-    BLIZZARD: 'A cold one'
+    BLIZZARD: 'A Cold One'
 
 }
 //this labels a clue from up above to the randomly generated word
@@ -54,7 +54,7 @@ window.onload = function () {
 
 /* create an empty array  fill it with
 underscores to match the number of letters in the word. */
-let answerArray = [];
+const answerArray = [];
 //replace letter with underscores at each index.
 for (var i = 0; i < word.length; i++) {
     answerArray[i] ='_';
@@ -67,37 +67,32 @@ let remainingLetters = word.length;
 /*input is from above inner text */
 function playGame(input){
 
-//the game loop
+        //the game loop
     if (remainingLetters > 0 ){
         let foundMatch = false;
-     
-    for (let i = 0; i <word.length; i++){
-       if (word[i]=== input) {
-            foundMatch = true;
-           answerArray[i] = input;
-           remainingLetters--;
-       }
-        if (remainingLetters === 0){
-           messageDiv.innerHTML ="Winner, Winner, Chicken Dinner!"
-           clueDiv.innerHTML ="Thanks for playing!"
-           setTimeout(function() {
-            window.location.reload()
-           },5000)
-        }
-       
-        
-    } if (!foundMatch) {
+            for (let i = 0; i <word.length; i++){
+                if (word[i]=== input) {
+                 foundMatch = true;
+                 answerArray[i] = input;
+                remainingLetters--;
+                 }
+                if (remainingLetters === 0){
+                 messageDiv.innerHTML ="Winner, Winner, Chicken Dinner!"
+                 clueDiv.innerHTML ="Thanks for playing!"
+                setTimeout(function() {
+                window.location.reload()
+                 },5000)
+            }      
+        } if (!foundMatch) {
         chancesLeft--;
         chanceDiv.innerHTML = `You have ${chancesLeft} chances left.`; 
-    }
-    if (chancesLeft == 0){
-        messageDiv.innerHTML = "You lost"
+        }
+        if (chancesLeft == 0){
+        messageDiv.innerHTML = "You lost! Try again in a second."
         setTimeout(function() {
             window.location.reload()
-           },1000)
-        
+           },1000) 
         } 
     }
     guessWordDiv.innerHTML =answerArray.join('')
-
 }
