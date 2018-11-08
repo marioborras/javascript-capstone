@@ -41,11 +41,11 @@ clueDiv.innerHTML = `Clue: ${clue[word]}`
 /*This is event listen to letter buttons and call play function inside.
 it also grays out the button and they are unable to select it again after it has been
 used. found this on stackoverflow, couldnt have done it with out it.*/
-window.onload = function () {
+window.onload = ()=> {
 	var letters = document.querySelector("#alphabet").children
 	for (x of letters ) {
-    x.addEventListener("click", function(select){ 
-    	select.target.disabled = 'true'
+    x.addEventListener("click", function(e){ 
+    	e.target.disabled = 'true'
         playGame(this.innerText) //grabs the inner text of this button and passes it to the function down below.
 
     })
@@ -56,7 +56,7 @@ window.onload = function () {
 underscores to match the number of letters in the word. */
 const answerArray = [];
 //replace letter with underscores at each index.
-for (var i = 0; i < word.length; i++) {
+for (let i = 0; i < word.length; i++) {
     answerArray[i] ='_';
 }
 
@@ -65,7 +65,7 @@ guessWordDiv.innerHTML = answerArray.join(' ')
 
 let remainingLetters = word.length;
 /*input is from above inner text */
-function playGame(input){
+const playGame = (input)=> {
 
         //the game loop
     if (remainingLetters > 0 ){
@@ -79,7 +79,7 @@ function playGame(input){
                 if (remainingLetters === 0){
                  messageDiv.innerHTML ="Winner, Winner, Chicken Dinner!"
                  clueDiv.innerHTML ="Thanks for playing!"
-                setTimeout(function() {
+                setTimeout(()=> {
                 window.location.reload()
                  },5000)
             }      
@@ -89,7 +89,7 @@ function playGame(input){
         }
         if (chancesLeft == 0){
         messageDiv.innerHTML = "You lost! Try again in a second."
-        setTimeout(function() {
+        setTimeout(() => {
             window.location.reload()
            },1000) 
         } 
